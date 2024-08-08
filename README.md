@@ -1,4 +1,3 @@
 # -
 实现五年数据的数据分析
 https://programmercarl.com/0541.%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
-curl -H "Content-Type:application/json" -k -u tauser:taesdb@Adm@VqeESdb#WGB2U "https://10.xxx.xxx.xxx:xxx/TA-MIN-CDN_SERVER_REQ_KPI/_search?pretty" -d '{"size": 0, "query": {"bool": {"filter": [{"range": {"TIME": {"gte": "1722470400000", "lte": "1722556799999", "format": "epoch_millis"}}}, {"query_string": {"analyze_wildcard": true, "query": "DOMAIN.keyword:* AND SERVICE_TYPE:(\"1\" OR \"2\" OR \"3\" OR \"4\") AND NOT DOMAIN_TYPE:1"}}]}}, "aggs": {"by_date": {"date_histogram": {"interval": "5m", "field": "TIME", "min_doc_count": 0, "format": "epoch_millis", "extended_bounds": {"min": "1722470400000", "max": "1722556799999"}}, "aggs": {"cityName_popId_agg": {"terms": {"script": {"lang": "painless", "source": "doc['cityName'].value + '|' + doc['popId'].value"}}, "aggs": {"sum_flux": {"sum": {"field": "FLUX"}}}}}}}}'
